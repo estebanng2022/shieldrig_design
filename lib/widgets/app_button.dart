@@ -42,7 +42,7 @@ class AppButton extends StatelessWidget {
         height: height ?? _getButtonHeight(context),
         decoration: _getBoxDecoration(context),
         child: Material(
-          color: Colors.transparent,
+          color: context.colors.transparent,
           child: InkWell(
             borderRadius: AppRadius.defaultRadius.mdRadius,
             onTap: (onPressed != null && !isLoading && !isDisabled) ? onPressed : null,
@@ -80,12 +80,12 @@ class AppButton extends StatelessWidget {
         );
       case AppButtonVariant.ghost:
         return BoxDecoration(
-          color: Colors.transparent,
+          color: context.colors.transparent,
           borderRadius: AppRadius.defaultRadius.mdRadius,
         );
       case AppButtonVariant.text:
-        return const BoxDecoration(
-          color: Colors.transparent,
+        return BoxDecoration(
+          color: context.colors.transparent,
         );
       case AppButtonVariant.danger:
         return BoxDecoration(
@@ -165,11 +165,11 @@ class AppButton extends StatelessWidget {
     
     switch (size) {
       case AppButtonSize.sm:
-        return textStyle.button.copyWith(fontSize: 12.0);
+        return textStyle.caption;
       case AppButtonSize.md:
         return textStyle.button;
       case AppButtonSize.lg:
-        return textStyle.button.copyWith(fontSize: 16.0);
+        return textStyle.body1;
     }
   }
 
@@ -183,13 +183,13 @@ class AppButton extends StatelessWidget {
     
     switch (variant) {
       case AppButtonVariant.primary:
-        return Colors.white;
+        return context.colors.white;
       case AppButtonVariant.secondary:
       case AppButtonVariant.ghost:
       case AppButtonVariant.text:
         return colors.textPrimary;
       case AppButtonVariant.danger:
-        return Colors.white;
+        return context.colors.white;
     }
   }
 

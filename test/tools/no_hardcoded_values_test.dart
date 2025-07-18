@@ -7,11 +7,16 @@ void main() {
       final issues = await _scanForHardcodedValues('lib/');
       
       if (issues.isNotEmpty) {
+        // ignore: avoid_print
         print('\n❌ Found ${issues.length} hardcoded values:');
         for (final issue in issues) {
+          // ignore: avoid_print
           print('📁 ${issue.filePath}:${issue.lineNumber}');
+          // ignore: avoid_print
           print('   ${issue.code.trim()}');
+          // ignore: avoid_print
           print('   💡 ${issue.suggestion}');
+          // ignore: avoid_print
           print('');
         }
       }
@@ -23,11 +28,16 @@ void main() {
       final issues = await _scanForHardcodedValues('test/');
       
       if (issues.isNotEmpty) {
+        // ignore: avoid_print
         print('\n❌ Found ${issues.length} hardcoded values:');
         for (final issue in issues) {
+          // ignore: avoid_print
           print('📁 ${issue.filePath}:${issue.lineNumber}');
+          // ignore: avoid_print
           print('   ${issue.code.trim()}');
+          // ignore: avoid_print
           print('   💡 ${issue.suggestion}');
+          // ignore: avoid_print
           print('');
         }
       }

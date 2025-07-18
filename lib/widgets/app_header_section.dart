@@ -32,6 +32,7 @@ class AppHeaderSection extends StatelessWidget {
     this.borderRadius,
     this.elevation,
     this.isCompact = false,
+    this.useStackLayout = false,
   });
 
   final String? title;
@@ -52,6 +53,7 @@ class AppHeaderSection extends StatelessWidget {
   final BorderRadius? borderRadius;
   final double? elevation;
   final bool isCompact;
+  final bool useStackLayout;
 
   @override
   Widget build(BuildContext context) {
@@ -82,38 +84,9 @@ class AppHeaderSection extends StatelessWidget {
           ),
         ] : null,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Main header row
-          Row(
-            children: [
-              // Leading section (back button, icon, or action)
-              _buildLeadingSection(context),
-              
-              // Title and subtitle section
-              Expanded(
-                child: _buildTitleSection(context),
-              ),
-              
-              // Trailing actions section
-              _buildTrailingSection(context),
-            ],
-          ),
-          
-          // Description (if provided and not compact)
-          if (description != null && !isCompact) ...[
-            AppSpacing.smVerticalGap,
-            _buildDescription(context),
-          ],
-          
-          // Action buttons (if provided and not compact)
-          if ((primaryAction != null || secondaryAction != null) && !isCompact) ...[
-            AppSpacing.mdVerticalGap,
-            _buildActionButtons(context),
-          ],
-        ],
-      ),
+      child: useStackLayout 
+        ? _buildStackLayout(context)
+        : _buildRowLayout(context),
     );
     
     // Add divider if requested
@@ -135,6 +108,69 @@ class AppHeaderSection extends StatelessWidget {
     }
     
     return headerContent;
+  }
+
+  Widget _buildRowLayout(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Main header row
+        Row(
+          children: [
+            // Leading section (back button, icon, or action)
+            _buildLeadingSection(context),
+            
+            // Title and subtitle section
+            Expanded(
+              child: _buildTitleSection(context),
+            ),
+            
+            // Trailing actions section
+            _buildTrailingSection(context),
+          ],
+        ),
+        
+        // Description (if provided and not compact)
+        if (description != null && !isCompact) ...[
+          AppSpacing.smVerticalGap,
+          _buildDescription(context),
+        ],
+        
+        // Action buttons (if provided and not compact)
+        if ((primaryAction != null || secondaryAction != null) && !isCompact) ...[
+          AppSpacing.mdVerticalGap,
+          _buildActionButtons(context),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildStackLayout(BuildContext context) {
+    return Stack(
+      children: [
+        // Centered title
+        if (title != null)
+          Center(
+            child: _buildTitleSection(context),
+          ),
+        
+        // Leading section (left)
+        Positioned(
+          left: 0,
+          top: 0,
+          bottom: 0,
+          child: _buildLeadingSection(context),
+        ),
+        
+        // Trailing actions section (right)
+        Positioned(
+          right: 0,
+          top: 0,
+          bottom: 0,
+          child: _buildTrailingSection(context),
+        ),
+      ],
+    );
   }
 
   Widget _buildLeadingSection(BuildContext context) {
@@ -353,9 +389,9 @@ class AppHeaderSection extends StatelessWidget {
       case AppHeaderVariant.large:
         return colors.surface.withValues(alpha: AppOpacities.highlight);
       case AppHeaderVariant.compact:
-        return Colors.transparent;
+        return context.colors.transparent;
       case AppHeaderVariant.minimal:
-        return Colors.transparent;
+        return context.colors.transparent;
     }
   }
 }

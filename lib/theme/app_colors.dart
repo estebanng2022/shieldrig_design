@@ -18,6 +18,9 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.outline,
     required this.disabled,
     required this.overlay,
+    required this.transparent,
+    required this.white,
+    required this.black,
   });
 
   // Brand colors
@@ -44,6 +47,11 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color outline;
   final Color disabled;
   final Color overlay;
+  
+  // Additional colors for common use cases
+  final Color transparent;
+  final Color white;
+  final Color black;
 
   // Light theme colors
   static const AppColors light = AppColors._(
@@ -71,6 +79,11 @@ class AppColors extends ThemeExtension<AppColors> {
     outline: Color(0xFFCBD5E1),
     disabled: Color(0xFFCBD5E1),
     overlay: Color(0x80000000),
+    
+    // Additional colors
+    transparent: Colors.transparent,
+    white: Color(0xFFFFFFFF),
+    black: Color(0xFF000000),
   );
 
   // Dark theme colors
@@ -99,6 +112,11 @@ class AppColors extends ThemeExtension<AppColors> {
     outline: Color(0xFF475569),
     disabled: Color(0xFF475569),
     overlay: Color(0x80000000),
+    
+    // Additional colors
+    transparent: Colors.transparent,
+    white: Color(0xFFFFFFFF),
+    black: Color(0xFF000000),
   );
 
   /// Creates a copy of this color palette with the given fields replaced
@@ -118,6 +136,9 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? outline,
     Color? disabled,
     Color? overlay,
+    Color? transparent,
+    Color? white,
+    Color? black,
   }) {
     return AppColors._(
       primary: primary ?? this.primary,
@@ -135,6 +156,9 @@ class AppColors extends ThemeExtension<AppColors> {
       outline: outline ?? this.outline,
       disabled: disabled ?? this.disabled,
       overlay: overlay ?? this.overlay,
+      transparent: transparent ?? this.transparent,
+      white: white ?? this.white,
+      black: black ?? this.black,
     );
   }
 
@@ -160,6 +184,9 @@ class AppColors extends ThemeExtension<AppColors> {
       outline: Color.lerp(a.outline, b.outline, t)!,
       disabled: Color.lerp(a.disabled, b.disabled, t)!,
       overlay: Color.lerp(a.overlay, b.overlay, t)!,
+      transparent: Color.lerp(a.transparent, b.transparent, t)!,
+      white: Color.lerp(a.white, b.white, t)!,
+      black: Color.lerp(a.black, b.black, t)!,
     );
   }
 
@@ -192,7 +219,10 @@ class AppColors extends ThemeExtension<AppColors> {
         other.divider == divider &&
         other.outline == outline &&
         other.disabled == disabled &&
-        other.overlay == overlay;
+        other.overlay == overlay &&
+        other.transparent == transparent &&
+        other.white == white &&
+        other.black == black;
   }
 
   @override
@@ -213,6 +243,9 @@ class AppColors extends ThemeExtension<AppColors> {
       outline,
       disabled,
       overlay,
+      transparent,
+      white,
+      black,
     );
   }
 

@@ -228,7 +228,7 @@ extension AppSnackbarExtension on BuildContext {
         showCloseButton: showCloseButton,
         isPersistent: isPersistent,
       ),
-      backgroundColor: Colors.transparent,
+              backgroundColor: this.colors.transparent,
       elevation: 0,
       behavior: SnackBarBehavior.floating,
       duration: isPersistent ? const Duration(days: 365) : (duration ?? const Duration(seconds: 4)),

@@ -308,7 +308,7 @@ class AppContentGroup extends StatelessWidget {
       case AppContentGroupVariant.grid:
         return colors.surface.withValues(alpha: AppOpacities.highlight);
       case AppContentGroupVariant.flow:
-        return Colors.transparent;
+        return context.colors.transparent;
       case AppContentGroupVariant.list:
         return colors.surface;
     }

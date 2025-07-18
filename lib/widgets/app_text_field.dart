@@ -271,7 +271,7 @@ class _AppTextFieldState extends State<AppTextField> {
       case AppTextFieldSize.md:
         return textStyle.body1;
       case AppTextFieldSize.lg:
-        return textStyle.body1.copyWith(fontSize: 16.0);
+        return textStyle.heading6;
     }
   }
 

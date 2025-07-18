@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_button.dart';
+import '../theme/app_sizes.dart';
+import '../theme/extensions/context_extensions.dart';
 
 /// Premium action section widget for grouping action buttons
 /// 
@@ -102,7 +104,7 @@ class AppActionSection extends StatelessWidget {
         border: border?.build(context),
         boxShadow: elevation != null 
           ? [BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
+              color: context.colors.black.withValues(alpha: 0.1),
               blurRadius: elevation!,
               offset: Offset(0, elevation! * 0.5),
             )]
@@ -118,8 +120,8 @@ class AppActionSection extends StatelessWidget {
         children: [
           Divider(
             color: colors.outline,
-            height: 1,
-            thickness: 1,
+            height: AppSizes.dividerThickness,
+            thickness: AppSizes.dividerThickness,
           ),
           container,
         ],

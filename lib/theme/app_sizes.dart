@@ -63,6 +63,7 @@ class AppSizes {
 
   // Divider and border sizes
   static const double dividerHeight = 1.0;
+  static const double dividerThickness = 1.0;
   static const double borderWidth = 1.0;
   static const double borderWidthThick = 2.0;
 

@@ -6,10 +6,10 @@ import 'commands/detect_hardcoded_command.dart';
 /// ShieldRig CLI - Design System Tools
 /// 
 /// Usage:
-///   dart run tools/shieldrig_cli.dart <command> [arguments]
-/// 
+///   dart run tools/shieldrig_cli.dart [command] [arguments]
+///
 /// Commands:
-///   detect-hardcoded <directory>  - Detect hardcoded values in Dart files
+///   detect-hardcoded [directory]  - Detect hardcoded values in Dart files
 ///   help                          - Show this help message
 void main(List<String> arguments) async {
   if (arguments.isEmpty) {
@@ -30,7 +30,9 @@ void main(List<String> arguments) async {
       _showHelp();
       break;
     default:
+      // ignore: avoid_print
       print('❌ Unknown command: $command');
+      // ignore: avoid_print
       print('');
       _showHelp();
       exit(1);
@@ -38,14 +40,15 @@ void main(List<String> arguments) async {
 }
 
 void _showHelp() {
+  // ignore: avoid_print
   print('''
 🛡️  ShieldRig CLI - Design System Tools
 
 Usage:
-  dart run tools/shieldrig_cli.dart <command> [arguments]
+  dart run tools/shieldrig_cli.dart [command] [arguments]
 
 Commands:
-  detect-hardcoded <directory>  - Detect hardcoded values in Dart files
+  detect-hardcoded [directory]  - Detect hardcoded values in Dart files
   help                          - Show this help message
 
 Examples:

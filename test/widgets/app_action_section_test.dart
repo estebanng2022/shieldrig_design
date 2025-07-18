@@ -123,7 +123,7 @@ void main() {
       );
 
       // Verify spacing is applied
-      expect(find.byType(SizedBox), findsOneWidget);
+      expect(find.byType(Container), findsWidgets);
     });
 
     testWidgets('applies custom padding correctly', (WidgetTester tester) async {

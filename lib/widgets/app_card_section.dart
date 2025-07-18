@@ -221,11 +221,11 @@ class AppCardSection extends StatelessWidget {
     
     switch (variant) {
       case AppCardSectionVariant.divider:
-        return Colors.transparent;
+        return context.colors.transparent;
       case AppCardSectionVariant.spaced:
         return colors.surface.withValues(alpha: AppOpacities.highlight);
       case AppCardSectionVariant.compact:
-        return Colors.transparent;
+        return context.colors.transparent;
       case AppCardSectionVariant.header:
         return colors.surface.withValues(alpha: AppOpacities.highlight);
     }
