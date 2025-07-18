@@ -21,3 +21,4 @@ export 'widgets/app_screen_base.dart';
 export 'widgets/app_divider.dart';
 export 'widgets/app_bottom_sheet.dart';
 export 'widgets/app_interactive_box.dart';
+export 'widgets/navigation/app_bottom_nav_bar.dart';

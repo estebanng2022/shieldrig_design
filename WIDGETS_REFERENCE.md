@@ -50,6 +50,10 @@ Listado oficial de widgets con su ubicación, propósito y características.
 `lib/widgets/app_header_section.dart`  
 → Header premium de página con 4 variantes (`standard`, `large`, `compact`, `minimal`), título, subtítulo, descripción, leading/trailing actions, primary/secondary actions, back button opcional, divider, padding/margin personalizables, background color, borderRadius, elevation y layout stack/row. Incluye widgets de conveniencia `AppPageHeader` y `AppCompactHeader`.
 
+### **`AppBottomNavBar`**  
+`lib/widgets/navigation/app_bottom_nav_bar.dart`  
+→ Barra de navegación inferior premium estilo Phantom con indicador animado superior, lista de ítems personalizables (`AppBottomNavItem`), colores dinámicos del theme y labels opcionales. Características: `currentIndex`, `onItemSelected`, `showLabels`, `backgroundColor`, `activeColor`, `inactiveColor`, `elevation`, `height`, `indicatorHeight/Width`, animaciones suaves (300ms), SafeArea automático, responsive design. Incluye helper `AppBottomNavBarHelper` para creación rápida de patrones comunes y soporte para íconos activos/inactivos separados.
+
 ---
 
 ## 📊 Content & Layout Widgets
@@ -94,12 +98,12 @@ Una vez tengas esto listo, podrías:
 
 ## 📈 Estadísticas
 
-- **Total de widgets**: 14 widgets core
+- **Total de widgets**: 15 widgets core
 - **Categorías**: 5 categorías principales
-- **Variantes soportadas**: 35+ variantes combinadas
-- **Estados**: Loading, disabled, error, success, warning, info, hover, selected
+- **Variantes soportadas**: 40+ variantes combinadas
+- **Estados**: Loading, disabled, error, success, warning, info, hover, selected, active/inactive
 - **Tamaños**: sm, md, lg en la mayoría de widgets
-- **Widgets de conveniencia**: 4 widgets helper (AppPageHeader, AppCompactHeader, AppStackedGroup, AppGridGroup)
+- **Widgets de conveniencia**: 5 widgets helper (AppPageHeader, AppCompactHeader, AppStackedGroup, AppGridGroup, AppBottomNavBarHelper)
 
 ---
 
