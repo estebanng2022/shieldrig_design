@@ -146,7 +146,7 @@ class AppFormSection extends StatelessWidget {
           Icon(
             headerIcon,
             size: AppSizes.iconSizeMd,
-            color: validationErrors.isNotEmpty ? colors.error : colors.textSecondary,
+            color: validationErrors.isNotEmpty ? colors.error : colors.secondaryText,
           ),
           AppSpacing.smHorizontalGap,
         ],
@@ -161,7 +161,7 @@ class AppFormSection extends StatelessWidget {
                   Text(
                     title!,
                     style: textStyle.heading6.copyWith(
-                      color: validationErrors.isNotEmpty ? colors.error : colors.textPrimary,
+                      color: validationErrors.isNotEmpty ? colors.error : colors.primaryText,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -181,7 +181,7 @@ class AppFormSection extends StatelessWidget {
                 Text(
                   subtitle!,
                   style: textStyle.caption.copyWith(
-                    color: colors.textSecondary,
+                    color: colors.secondaryText,
                   ),
                 ),
               ],
@@ -197,7 +197,7 @@ class AppFormSection extends StatelessWidget {
             icon: Icon(
               isExpanded ? AppIcons.up : AppIcons.down,
               size: AppSizes.iconSizeSm,
-              color: colors.textSecondary,
+              color: colors.secondaryText,
             ),
             padding: EdgeInsets.zero,
             constraints: BoxConstraints(
@@ -223,7 +223,7 @@ class AppFormSection extends StatelessWidget {
     return Text(
       description!,
       style: textStyle.body2.copyWith(
-        color: colors.textSecondary,
+        color: colors.secondaryText,
       ),
     );
   }
@@ -288,7 +288,7 @@ class AppFormSection extends StatelessWidget {
     return Container(
               margin: EdgeInsets.symmetric(vertical: AppSpacing.md),
       height: AppSizes.dividerHeight,
-      color: colors.divider,
+      color: colors.outline,
     );
   }
 
@@ -344,14 +344,14 @@ class AppFormField extends StatelessWidget {
                 Icon(
                   prefixIcon,
                   size: AppSizes.iconSizeSm,
-                  color: hasError ? colors.error : colors.textSecondary,
+                  color: hasError ? colors.error : colors.secondaryText,
                 ),
                 AppSpacing.xsHorizontalGap,
               ],
               Text(
                 label!,
                 style: textStyle.label.copyWith(
-                  color: hasError ? colors.error : colors.textPrimary,
+                  color: hasError ? colors.error : colors.primaryText,
                 ),
               ),
               if (isRequired) ...[
@@ -368,7 +368,7 @@ class AppFormField extends StatelessWidget {
                 Icon(
                   suffixIcon,
                   size: AppSizes.iconSizeSm,
-                  color: colors.textSecondary,
+                  color: colors.secondaryText,
                 ),
               ],
             ],
@@ -391,7 +391,7 @@ class AppFormField extends StatelessWidget {
           Text(
             helperText!,
             style: textStyle.caption.copyWith(
-              color: colors.textSecondary,
+              color: colors.secondaryText,
             ),
           ),
         ],

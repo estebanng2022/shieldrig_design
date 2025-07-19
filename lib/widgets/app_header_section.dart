@@ -183,7 +183,7 @@ class AppHeaderSection extends StatelessWidget {
         icon: Icon(
           AppIcons.back,
           size: AppSizes.iconSizeMd,
-          color: colors.textPrimary,
+          color: colors.primaryText,
         ),
         padding: EdgeInsets.zero,
         constraints: BoxConstraints(
@@ -200,7 +200,7 @@ class AppHeaderSection extends StatelessWidget {
         icon: Icon(
           leadingIcon,
           size: AppSizes.iconSizeMd,
-          color: colors.textSecondary,
+          color: colors.secondaryText,
         ),
         padding: EdgeInsets.zero,
         constraints: BoxConstraints(
@@ -234,7 +234,7 @@ class AppHeaderSection extends StatelessWidget {
           Text(
             subtitle!,
             style: textStyle.body2.copyWith(
-              color: colors.textSecondary,
+              color: colors.secondaryText,
             ),
             maxLines: isCompact ? 1 : 2,
             overflow: TextOverflow.ellipsis,
@@ -273,7 +273,7 @@ class AppHeaderSection extends StatelessWidget {
     return Text(
       description!,
       style: textStyle.body2.copyWith(
-        color: colors.textSecondary,
+        color: colors.secondaryText,
       ),
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
@@ -304,7 +304,7 @@ class AppHeaderSection extends StatelessWidget {
     return Container(
               margin: EdgeInsets.symmetric(vertical: AppSpacing.md),
       height: AppSizes.dividerHeight,
-      color: colors.divider,
+      color: colors.outline,
     );
   }
 
@@ -315,22 +315,22 @@ class AppHeaderSection extends StatelessWidget {
     switch (variant) {
       case AppHeaderVariant.standard:
         return textStyle.heading4.copyWith(
-          color: colors.textPrimary,
+          color: colors.primaryText,
           fontWeight: FontWeight.w600,
         );
       case AppHeaderVariant.large:
         return textStyle.heading3.copyWith(
-          color: colors.textPrimary,
+          color: colors.primaryText,
           fontWeight: FontWeight.w700,
         );
       case AppHeaderVariant.compact:
         return textStyle.heading6.copyWith(
-          color: colors.textPrimary,
+          color: colors.primaryText,
           fontWeight: FontWeight.w600,
         );
       case AppHeaderVariant.minimal:
         return textStyle.body1.copyWith(
-          color: colors.textPrimary,
+          color: colors.primaryText,
           fontWeight: FontWeight.w500,
         );
     }

@@ -178,16 +178,16 @@ class AppButton extends StatelessWidget {
     final isEnabled = onPressed != null && !isLoading && !isDisabled;
     
     if (!isEnabled) {
-      return colors.textTertiary;
+      return colors.secondaryText;
     }
     
     switch (variant) {
       case AppButtonVariant.primary:
-        return context.colors.white;
+        return colors.primaryText;
       case AppButtonVariant.secondary:
       case AppButtonVariant.ghost:
       case AppButtonVariant.text:
-        return colors.textPrimary;
+        return colors.primaryText;
       case AppButtonVariant.danger:
         return context.colors.white;
     }

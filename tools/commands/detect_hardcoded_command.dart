@@ -52,34 +52,7 @@ class DetectHardcodedCommand {
     'lib/theme/app_icons.dart',
   ];
 
-  /// Hardcoded patterns to detect
-  static const List<String> _hardcodedPatterns = [
-    'EdgeInsets.all(',
-    'EdgeInsets.only(',
-    'EdgeInsets.symmetric(',
-    'EdgeInsets.fromLTRB(',
-    'SizedBox(height:',
-    'SizedBox(width:',
-    'Container(height:',
-    'Container(width:',
-    'Padding(padding:',
-    'Margin(margin:',
-    'BorderRadius.circular(',
-    'BorderRadius.only(',
-    'BorderRadius.all(',
-    'TextStyle(',
-    'Color(',
-    'Colors.',
-    'fontSize:',
-    'fontWeight:',
-    'letterSpacing:',
-    'height:',
-    'width:',
-    'radius:',
-    'borderRadius:',
-    'padding:',
-    'margin:',
-  ];
+
 
   /// Run the detect-hardcoded command
   static Future<void> run(List<String> arguments) async {
@@ -197,13 +170,7 @@ class DetectHardcodedCommand {
     return files;
   }
 
-  /// Check if a line contains allowed patterns
-  static bool _isAllowedPattern(String line) {
-    for (final pattern in _allowedPatterns) {
-      if (line.contains(pattern)) return true;
-    }
-    return false;
-  }
+
 
   /// Check if a file should be excluded from hardcoded detection
   static bool _isExcludedFile(String filePath) {
@@ -216,29 +183,5 @@ class DetectHardcodedCommand {
     return false;
   }
 
-  /// Get suggestion for hardcoded pattern
-  static String _getSuggestion(String line, String pattern) {
-    if (pattern.contains('EdgeInsets.all(')) {
-      return 'Use context.spacing.md instead of hardcoded EdgeInsets';
-    }
-    if (pattern.contains('EdgeInsets.only(') || pattern.contains('EdgeInsets.symmetric(')) {
-      return 'Use context.spacing values instead of hardcoded EdgeInsets';
-    }
-    if (pattern.contains('SizedBox(height:') || pattern.contains('SizedBox(width:')) {
-      return 'Use AppSizes or context.sizes instead of hardcoded SizedBox';
-    }
-    if (pattern.contains('BorderRadius.circular(')) {
-      return 'Use AppRadius.defaultRadius instead of hardcoded BorderRadius';
-    }
-    if (pattern.contains('TextStyle(')) {
-      return 'Use context.textStyle instead of hardcoded TextStyle';
-    }
-    if (pattern.contains('Color(') || pattern.contains('Colors.')) {
-      return 'Use context.colors instead of hardcoded colors';
-    }
-    if (pattern.contains('fontSize:') || pattern.contains('fontWeight:')) {
-      return 'Use context.textStyle instead of hardcoded text properties';
-    }
-    return 'Consider using design system values instead of hardcoded values';
-  }
+
 } 

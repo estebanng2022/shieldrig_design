@@ -65,7 +65,7 @@ class AppBottomNavBar extends StatelessWidget {
     // Get colors from theme or use provided ones
     final effectiveBackgroundColor = backgroundColor ?? colors.surface;
     final effectiveActiveColor = activeColor ?? colors.primary;
-    final effectiveInactiveColor = inactiveColor ?? colors.textSecondary;
+    final effectiveInactiveColor = inactiveColor ?? colors.secondaryText;
 
     return Container(
       height: height,

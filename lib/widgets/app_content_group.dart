@@ -126,7 +126,7 @@ class AppContentGroup extends StatelessWidget {
         Text(
           title!,
           style: textStyle.heading5.copyWith(
-            color: colors.textPrimary,
+            color: colors.primaryText,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -135,7 +135,7 @@ class AppContentGroup extends StatelessWidget {
           Text(
             subtitle!,
             style: textStyle.body2.copyWith(
-              color: colors.textSecondary,
+              color: colors.secondaryText,
             ),
           ),
         ],
@@ -257,7 +257,7 @@ class AppContentGroup extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: AppSpacing.xs),
       height: AppSizes.dividerHeight,
-      color: colors.divider,
+      color: colors.outline,
     );
   }
 
@@ -267,7 +267,7 @@ class AppContentGroup extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: AppSpacing.md),
       height: AppSizes.dividerHeight,
-      color: colors.divider,
+      color: colors.outline,
     );
   }
 

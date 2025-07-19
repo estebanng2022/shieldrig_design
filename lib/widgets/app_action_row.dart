@@ -106,7 +106,7 @@ class AppActionRow extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: AppSpacing.md),
       height: AppSizes.dividerHeight,
-      color: colors.divider,
+      color: colors.outline,
     );
   }
 }
@@ -123,7 +123,7 @@ class _ActionIcon extends StatelessWidget {
     final textStyle = context.textStyle;
 
     final iconColor = item.iconColor ?? 
-      (item.isDisabled ? colors.textTertiary : colors.textSecondary);
+      (item.isDisabled ? colors.secondaryText : colors.secondaryText);
     final backgroundColor = item.backgroundColor ?? 
       (item.isDisabled ? colors.disabled : colors.surface);
 
@@ -159,7 +159,7 @@ class _ActionIcon extends StatelessWidget {
         Text(
           item.label,
           style: textStyle.caption.copyWith(
-            color: item.isDisabled ? colors.textTertiary : colors.textSecondary,
+            color: item.isDisabled ? colors.secondaryText : colors.secondaryText,
           ),
           textAlign: TextAlign.center,
         ),

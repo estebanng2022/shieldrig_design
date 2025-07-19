@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'commands/detect_hardcoded_command.dart';
+import 'commands/analyze_warnings_command.dart';
 
 /// ShieldRig CLI - Design System Tools
 /// 
@@ -23,6 +24,9 @@ void main(List<String> arguments) async {
   switch (command) {
     case 'detect-hardcoded':
       await DetectHardcodedCommand.run(commandArgs);
+      break;
+    case 'analyze-warnings':
+      await AnalyzeWarningsCommand.run(commandArgs);
       break;
     case 'help':
     case '--help':
@@ -49,11 +53,13 @@ Usage:
 
 Commands:
   detect-hardcoded [directory]  - Detect hardcoded values in Dart files
+  analyze-warnings [directory]  - Analyze and group warnings from dart analyze
   help                          - Show this help message
 
 Examples:
   dart run tools/shieldrig_cli.dart detect-hardcoded lib/
-  dart run tools/shieldrig_cli.dart detect-hardcoded test/
+  dart run tools/shieldrig_cli.dart analyze-warnings lib/
+  dart run tools/shieldrig_cli.dart analyze-warnings --fix
   dart run tools/shieldrig_cli.dart help
 
 For more information, visit: https://github.com/shieldrig/shieldrig_design

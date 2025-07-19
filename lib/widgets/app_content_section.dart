@@ -8,14 +8,14 @@ import '../theme/app_sizes.dart';
 import '../theme/app_icons.dart';
 import '../theme/extensions/context_extensions.dart';
 
-/// Premium card section widget for dividing content within AppCard
-class AppCardSection extends StatelessWidget {
-  const AppCardSection({
+/// Premium content section widget for dividing content within AppCard
+class AppContentSection extends StatelessWidget {
+  const AppContentSection({
     super.key,
     required this.child,
     this.title,
     this.subtitle,
-    this.variant = AppCardSectionVariant.spaced,
+    this.variant = AppContentSectionVariant.spaced,
     this.padding,
     this.margin,
     this.showDivider = false,
@@ -30,7 +30,7 @@ class AppCardSection extends StatelessWidget {
   final Widget child;
   final String? title;
   final String? subtitle;
-  final AppCardSectionVariant variant;
+  final AppContentSectionVariant variant;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final bool showDivider;
@@ -65,7 +65,7 @@ class AppCardSection extends StatelessWidget {
           // Header (if title is provided)
           if (title != null) ...[
             _buildHeader(context),
-            if (variant != AppCardSectionVariant.compact) AppSpacing.smVerticalGap,
+            if (variant != AppContentSectionVariant.compact) AppSpacing.smVerticalGap,
           ],
           
           // Content
@@ -106,7 +106,7 @@ class AppCardSection extends StatelessWidget {
           Icon(
             headerIcon,
             size: AppSizes.iconSizeMd,
-            color: colors.textSecondary,
+            color: colors.secondaryText,
           ),
           AppSpacing.smHorizontalGap,
         ],
@@ -119,7 +119,7 @@ class AppCardSection extends StatelessWidget {
               Text(
                 title!,
                 style: textStyle.heading6.copyWith(
-                  color: colors.textPrimary,
+                  color: colors.primaryText,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -128,7 +128,7 @@ class AppCardSection extends StatelessWidget {
                 Text(
                   subtitle!,
                   style: textStyle.caption.copyWith(
-                    color: colors.textSecondary,
+                    color: colors.secondaryText,
                   ),
                 ),
               ],
@@ -144,7 +144,7 @@ class AppCardSection extends StatelessWidget {
             icon: Icon(
               isExpanded ? AppIcons.up : AppIcons.down,
               size: AppSizes.iconSizeSm,
-              color: colors.textSecondary,
+              color: colors.secondaryText,
             ),
             padding: EdgeInsets.zero,
             constraints: BoxConstraints(
@@ -169,7 +169,7 @@ class AppCardSection extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: AppSpacing.sm),
       height: AppSizes.dividerHeight,
-      color: colors.divider,
+      color: colors.outline,
     );
   }
 
@@ -182,19 +182,19 @@ class AppCardSection extends StatelessWidget {
     
     // Default padding based on variant
     switch (variant) {
-      case AppCardSectionVariant.divider:
+      case AppContentSectionVariant.divider:
         return EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.sm,
         );
-      case AppCardSectionVariant.spaced:
+      case AppContentSectionVariant.spaced:
         return AppSpacing.mdPadding;
-      case AppCardSectionVariant.compact:
+      case AppContentSectionVariant.compact:
         return EdgeInsets.symmetric(
           horizontal: AppSpacing.sm,
           vertical: AppSpacing.xs,
         );
-      case AppCardSectionVariant.header:
+      case AppContentSectionVariant.header:
         return EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.sm,
@@ -205,13 +205,13 @@ class AppCardSection extends StatelessWidget {
   BorderRadius _getBorderRadius(BuildContext context) {
     
     switch (variant) {
-      case AppCardSectionVariant.divider:
+      case AppContentSectionVariant.divider:
         return BorderRadius.zero;
-      case AppCardSectionVariant.spaced:
+      case AppContentSectionVariant.spaced:
         return AppRadius.defaultRadius.smRadius;
-      case AppCardSectionVariant.compact:
+      case AppContentSectionVariant.compact:
         return AppRadius.defaultRadius.xsRadius;
-      case AppCardSectionVariant.header:
+      case AppContentSectionVariant.header:
         return AppRadius.defaultRadius.mdRadius;
     }
   }
@@ -220,20 +220,20 @@ class AppCardSection extends StatelessWidget {
     final colors = context.colors;
     
     switch (variant) {
-      case AppCardSectionVariant.divider:
+      case AppContentSectionVariant.divider:
         return context.colors.transparent;
-      case AppCardSectionVariant.spaced:
+      case AppContentSectionVariant.spaced:
         return colors.surface.withValues(alpha: AppOpacities.highlight);
-      case AppCardSectionVariant.compact:
+      case AppContentSectionVariant.compact:
         return context.colors.transparent;
-      case AppCardSectionVariant.header:
+      case AppContentSectionVariant.header:
         return colors.surface.withValues(alpha: AppOpacities.highlight);
     }
   }
 }
 
-/// Card section variant enum
-enum AppCardSectionVariant {
+/// Content section variant enum
+enum AppContentSectionVariant {
   divider,
   spaced,
   compact,
@@ -261,10 +261,10 @@ class AppCompactSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppCardSection(
+    return AppContentSection(
       title: title,
       subtitle: subtitle,
-      variant: AppCardSectionVariant.compact,
+      variant: AppContentSectionVariant.compact,
       padding: padding,
       margin: margin,
       child: child,

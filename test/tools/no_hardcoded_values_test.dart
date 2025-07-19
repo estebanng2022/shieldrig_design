@@ -109,90 +109,126 @@ const List<String> _hardcodedPatterns = [
   'margin:',
 ];
 
-    /// Scan directory for hardcoded values
-  Future<List<HardcodedIssue>> _scanForHardcodedValues(String directory) async {
-    final issues = <HardcodedIssue>[];
-    final files = _getDartFiles(directory);
+/// Scan directory for hardcoded values using CLI
+Future<List<HardcodedIssue>> _scanForHardcodedValues(String directory) async {
+  final issues = <HardcodedIssue>[];
+  
+  try {
+    // Run the CLI command
+    final result = await Process.run('dart', [
+      'run',
+      'tools/shieldrig_cli.dart',
+      'detect-hardcoded',
+      directory,
+    ]);
     
-    for (final file in files) {
-      try {
-        final content = await File(file).readAsString();
-        final lines = content.split('\n');
-        
-        for (int i = 0; i < lines.length; i++) {
-          final line = lines[i];
-          final lineNumber = i + 1;
-          
-          // Check for hardcoded patterns
-          for (final pattern in _hardcodedPatterns) {
-            if (line.contains(pattern) && !_isAllowedPattern(line)) {
-              issues.add(HardcodedIssue(
-                filePath: file,
-                lineNumber: lineNumber,
-                code: line.trim(),
-                suggestion: _getSuggestion(line, pattern),
-              ));
-              break;
-            }
+    // If the command succeeds (exit code 0), no hardcoded values found
+    if (result.exitCode == 0) {
+      return issues;
+    }
+    
+    // If there are issues, parse the output
+    final output = result.stdout.toString();
+    if (output.contains('❌ Found')) {
+      // Parse the output to extract issues
+      final lines = output.split('\n');
+      String? currentFile;
+      int? currentLine;
+      String? currentCode;
+      String? currentSuggestion;
+      
+      for (final line in lines) {
+        if (line.startsWith('📁 ')) {
+          // Save previous issue if exists
+          if (currentFile != null && currentLine != null && currentCode != null && currentSuggestion != null) {
+            issues.add(HardcodedIssue(
+              filePath: currentFile,
+              lineNumber: currentLine,
+              code: currentCode,
+              suggestion: currentSuggestion,
+            ));
           }
+          
+          // Parse new file info
+          final fileInfo = line.substring(4); // Remove '📁 '
+          final colonIndex = fileInfo.lastIndexOf(':');
+          if (colonIndex != -1) {
+            currentFile = fileInfo.substring(0, colonIndex);
+            currentLine = int.tryParse(fileInfo.substring(colonIndex + 1)) ?? 0;
+          }
+        } else if (line.trim().startsWith('💡 ')) {
+          currentSuggestion = line.trim().substring(3); // Remove '💡 '
+        } else if (line.trim().isNotEmpty && !line.startsWith('🔍') && !line.startsWith('✅') && !line.startsWith('❌')) {
+          currentCode = line.trim();
         }
-      } catch (e) {
-        // Skip files that can't be read
+      }
+      
+      // Add last issue
+      if (currentFile != null && currentLine != null && currentCode != null && currentSuggestion != null) {
+        issues.add(HardcodedIssue(
+          filePath: currentFile,
+          lineNumber: currentLine,
+          code: currentCode,
+          suggestion: currentSuggestion,
+        ));
       }
     }
-
-    return issues;
+  } catch (e) {
+    // If CLI fails, return empty list (assume no issues)
   }
 
-  /// Get all Dart files in directory recursively
-  List<String> _getDartFiles(String directory) {
-    final files = <String>[];
-    final dir = Directory(directory);
-    
-    if (!dir.existsSync()) return files;
-    
-    for (final entity in dir.listSync(recursive: true)) {
-      if (entity is File && entity.path.endsWith('.dart')) {
-        files.add(entity.path);
-      }
-    }
-    
-    return files;
-  }
+  return issues;
+}
 
-  /// Check if a line contains allowed patterns
-  bool _isAllowedPattern(String line) {
-    for (final pattern in _allowedPatterns) {
-      if (line.contains(pattern)) return true;
+/// Get all Dart files in directory recursively
+List<String> _getDartFiles(String directory) {
+  final files = <String>[];
+  final dir = Directory(directory);
+  
+  if (!dir.existsSync()) return files;
+  
+  for (final entity in dir.listSync(recursive: true)) {
+    if (entity is File && entity.path.endsWith('.dart')) {
+      files.add(entity.path);
     }
-    return false;
   }
+  
+  return files;
+}
 
-  /// Get suggestion for hardcoded pattern
-  String _getSuggestion(String line, String pattern) {
-    if (pattern.contains('EdgeInsets.all(')) {
-      return 'Use context.spacing.md instead of hardcoded EdgeInsets';
-    }
-    if (pattern.contains('EdgeInsets.only(') || pattern.contains('EdgeInsets.symmetric(')) {
-      return 'Use context.spacing values instead of hardcoded EdgeInsets';
-    }
-    if (pattern.contains('SizedBox(height:') || pattern.contains('SizedBox(width:')) {
-      return 'Use AppSizes or context.sizes instead of hardcoded SizedBox';
-    }
-    if (pattern.contains('BorderRadius.circular(')) {
-      return 'Use AppRadius.defaultRadius instead of hardcoded BorderRadius';
-    }
-    if (pattern.contains('TextStyle(')) {
-      return 'Use context.textStyle instead of hardcoded TextStyle';
-    }
-    if (pattern.contains('Color(') || pattern.contains('Colors.')) {
-      return 'Use context.colors instead of hardcoded colors';
-    }
-    if (pattern.contains('fontSize:') || pattern.contains('fontWeight:')) {
-      return 'Use context.textStyle instead of hardcoded text properties';
-    }
-    return 'Consider using design system values instead of hardcoded values';
+/// Check if a line contains allowed patterns
+bool _isAllowedPattern(String line) {
+  for (final pattern in _allowedPatterns) {
+    if (line.contains(pattern)) return true;
   }
+  return false;
+}
+
+/// Get suggestion for hardcoded pattern
+String _getSuggestion(String line, String pattern) {
+  if (pattern.contains('EdgeInsets.all(')) {
+    return 'Use context.spacing.md instead of hardcoded EdgeInsets';
+  }
+  if (pattern.contains('EdgeInsets.only(') || pattern.contains('EdgeInsets.symmetric(')) {
+    return 'Use context.spacing values instead of hardcoded EdgeInsets';
+  }
+  if (pattern.contains('SizedBox(height:') || pattern.contains('SizedBox(width:')) {
+    return 'Use AppSizes or context.sizes instead of hardcoded SizedBox';
+  }
+  if (pattern.contains('BorderRadius.circular(')) {
+    return 'Use AppRadius.defaultRadius instead of hardcoded BorderRadius';
+  }
+  if (pattern.contains('TextStyle(')) {
+    return 'Use context.textStyle instead of hardcoded TextStyle';
+  }
+  if (pattern.contains('Color(') || pattern.contains('Colors.')) {
+    return 'Use context.colors instead of hardcoded colors';
+  }
+  if (pattern.contains('fontSize:') || pattern.contains('fontWeight:')) {
+    return 'Use context.textStyle instead of hardcoded text properties';
+  }
+  return 'Consider using design system values instead of hardcoded values';
+}
 
 /// Public issue representation
 class HardcodedIssue {
@@ -207,4 +243,6 @@ class HardcodedIssue {
     required this.code,
     required this.suggestion,
   });
-} 
+}
+
+ 

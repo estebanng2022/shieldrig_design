@@ -61,6 +61,11 @@ class HardcodedAstVisitor extends GeneralizingAstVisitor<void> {
       _checkForHardcodedContainer(node);
     }
     
+    // Detectar Icon() con valores hardcodeados
+    if (_isIconCreation(node)) {
+      _checkForHardcodedIcon(node);
+    }
+    
     super.visitInstanceCreationExpression(node);
   }
 
@@ -90,44 +95,95 @@ class HardcodedAstVisitor extends GeneralizingAstVisitor<void> {
 
   /// Verificar si es una creación de EdgeInsets
   bool _isEdgeInsetsCreation(InstanceCreationExpression node) {
-    return node.constructorName.name == 'EdgeInsets' ||
-           node.constructorName.name == 'all' ||
-           node.constructorName.name == 'symmetric' ||
-           node.constructorName.name == 'only' ||
-           node.constructorName.name == 'fromLTRB';
+    final name = node.constructorName.name;
+    return name == 'EdgeInsets' ||
+           name == 'all' ||
+           name == 'symmetric' ||
+           name == 'only' ||
+           name == 'fromLTRB';
   }
 
   /// Verificar si es una creación de BorderRadius
   bool _isBorderRadiusCreation(InstanceCreationExpression node) {
-    return node.constructorName.name == 'BorderRadius' ||
-           node.constructorName.name == 'circular' ||
-           node.constructorName.name == 'all' ||
-           node.constructorName.name == 'only';
+    final name = node.constructorName.name;
+    return name == 'BorderRadius' ||
+           name == 'circular' ||
+           name == 'all' ||
+           name == 'only';
   }
 
   /// Verificar si es una creación de TextStyle
   bool _isTextStyleCreation(InstanceCreationExpression node) {
-    return node.constructorName.name == 'TextStyle';
+    final name = node.constructorName.name;
+    return name == 'TextStyle';
   }
 
   /// Verificar si es una creación de SizedBox
   bool _isSizedBoxCreation(InstanceCreationExpression node) {
-    return node.constructorName.name == 'SizedBox';
+    final name = node.constructorName.name;
+    return name == 'SizedBox';
   }
 
   /// Verificar si es una creación de Container
   bool _isContainerCreation(InstanceCreationExpression node) {
-    return node.constructorName.name == 'Container';
+    final name = node.constructorName.name;
+    return name == 'Container';
+  }
+
+  /// Verificar si es una creación de Icon
+  bool _isIconCreation(InstanceCreationExpression node) {
+    final name = node.constructorName.name;
+    return name == 'Icon';
   }
 
   /// Verificar si es un prefijo de Colors
   bool _isColorsPrefixed(PrefixedIdentifier node) {
-    return node.prefix.name == 'Colors';
+    final name = node.prefix.name;
+    return name == 'Colors';
   }
 
-  /// Verificar si el código contiene patrones permitidos
+  /// Verificar si el código contiene patrones permitidos del design system
   bool _containsAllowedPattern(String code) {
-    for (final pattern in allowedPatterns) {
+    // Patrones del design system que NO son hardcoded
+    final designSystemPatterns = [
+      'context.spacing',
+      'context.colors',
+      'context.textStyle',
+      'context.radius',
+      'AppSpacing',
+      'AppRadius',
+      'AppSizes',
+      'AppOpacities',
+      'Theme.of(context)',
+      'padding:',
+      'margin:',
+      'height:',
+      'width:',
+      'borderRadius:',
+      'color:',
+      'backgroundColor:',
+      'foregroundColor:',
+      'iconColor:',
+      'dividerColor:',
+      'borderColor:',
+      'shadowColor:',
+      'textColor:',
+      'style:',
+      'fontSize:',
+      'fontWeight:',
+      'letterSpacing:',
+      'height:',
+      'width:',
+      'radius:',
+      'borderRadius:',
+      'padding:',
+      'margin:',
+    ];
+    
+    // Combinar patrones permitidos del usuario con los del design system
+    final allAllowedPatterns = [...allowedPatterns, ...designSystemPatterns];
+    
+    for (final pattern in allAllowedPatterns) {
       if (code.contains(pattern)) {
         return true;
       }
@@ -254,15 +310,41 @@ class HardcodedAstVisitor extends GeneralizingAstVisitor<void> {
           name == 'width' ||
           name == 'padding' ||
           name == 'margin' ||
-          name == 'borderRadius') {
+          name == 'borderRadius' ||
+          name == 'size') {
         
         final code = parent.toString();
         if (_containsAllowedPattern(code)) return;
         
-        _report(parent, 'Use context.textStyle instead of hardcoded text properties');
+        // Verificar si es un tamaño de ícono hardcoded
+        if (name == 'size' && (node.toString() == '24' || node.toString() == '20' || node.toString() == '16' || node.toString() == '32')) {
+          _report(parent, 'Use AppSizes.iconSizeSm/Md/Lg instead of hardcoded icon size');
+        } else {
+          _report(parent, 'Use context.textStyle instead of hardcoded text properties');
+        }
       }
     }
   }
+
+  /// Verificar Icon hardcodeados
+  void _checkForHardcodedIcon(InstanceCreationExpression node) {
+    if (_isFileExcluded()) return;
+    
+    final code = node.toString();
+    if (_containsAllowedPattern(code)) return;
+    
+    // Detectar valores hardcodeados en Icon (size)
+    if (code.contains('size:') && 
+        (code.contains('size: 24') || 
+         code.contains('size: 20') || 
+         code.contains('size: 16') ||
+         code.contains('size: 32'))) {
+      
+      _report(node, 'Use AppSizes.iconSizeSm/Md/Lg instead of hardcoded icon size');
+    }
+  }
+
+
 }
 
 /// Representación de un issue hardcodeado

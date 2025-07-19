@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 import '../theme/app_sizes.dart';
 import '../theme/app_opacities.dart';
 import '../theme/app_radius.dart';
+import '../theme/app_spacing.dart';
 import '../theme/extensions/context_extensions.dart';
 
 
 /// Premium card widget with complete theme integration
+/// 
+/// Purely visual wrapper for styling and structure (padding, border, background, etc.)
+/// For dynamic content, use functional widgets like AppContentSection, AppFormSection, etc.
 class AppCard extends StatelessWidget {
   const AppCard({
     super.key,
@@ -22,12 +26,14 @@ class AppCard extends StatelessWidget {
     this.isSelected = false,
     this.onTap,
     this.onLongPress,
-    this.color,
+    this.backgroundColor,
     this.borderColor,
     this.shadowColor,
   });
 
+  /// Child widget to display inside the card
   final Widget child;
+  
   final AppCardVariant variant;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
@@ -38,13 +44,14 @@ class AppCard extends StatelessWidget {
   final bool isSelected;
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
-  final Color? color;
+  final Color? backgroundColor;
   final Color? borderColor;
   final Color? shadowColor;
 
   @override
   Widget build(BuildContext context) {
     // Get default padding based on theme
+    final cardPadding = padding ?? AppSpacing.smPadding;
     
     // Get default margin
     final cardMargin = margin ?? EdgeInsets.zero;
@@ -61,6 +68,7 @@ class AppCard extends StatelessWidget {
     final cardShadowColor = _getShadowColor(context);
     
     Widget cardContent = Container(
+      padding: cardPadding,
       decoration: _buildDecoration(
         context,
         cardColor,
@@ -137,9 +145,9 @@ class AppCard extends StatelessWidget {
   Color _getCardColor(BuildContext context) {
     final colors = context.colors;
     
-    // Custom color takes precedence
-    if (color != null) {
-      return color!;
+    // Custom backgroundColor takes precedence
+    if (backgroundColor != null) {
+      return backgroundColor!;
     }
     
     // Base color based on variant

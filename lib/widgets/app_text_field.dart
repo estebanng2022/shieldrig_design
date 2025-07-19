@@ -90,7 +90,7 @@ class _AppTextFieldState extends State<AppTextField> {
               Text(
                 widget.label!,
                 style: textStyle.label.copyWith(
-                  color: hasError ? colors.error : colors.textPrimary,
+                  color: hasError ? colors.error : colors.primaryText,
                 ),
               ),
               if (widget.isRequired) ...[
@@ -140,7 +140,7 @@ class _AppTextFieldState extends State<AppTextField> {
           Text(
             widget.helperText!,
             style: textStyle.caption.copyWith(
-              color: colors.textSecondary,
+              color: colors.secondaryText,
             ),
           ),
         ],
@@ -212,13 +212,13 @@ class _AppTextFieldState extends State<AppTextField> {
     final colors = context.colors;
     final isEnabled = !widget.isDisabled;
     
-    Color iconColor = isEnabled ? colors.textSecondary : colors.textTertiary;
+    Color iconColor = isEnabled ? colors.secondaryText : colors.secondaryText;
     if (hasError) iconColor = colors.error;
     
     return InputDecoration(
       hintText: widget.hint,
       hintStyle: _getTextStyle(context).copyWith(
-        color: colors.textTertiary,
+        color: colors.secondaryText,
       ),
       border: InputBorder.none,
       contentPadding: _getContentPadding(context),

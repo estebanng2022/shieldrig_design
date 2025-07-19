@@ -5,190 +5,107 @@ class AppColors extends ThemeExtension<AppColors> {
   const AppColors._({
     required this.primary,
     required this.secondary,
-    required this.background,
-    required this.surface,
-    required this.textPrimary,
-    required this.textSecondary,
-    required this.textTertiary,
+    required this.tertiary,
+    required this.alternate,
+    required this.primaryBackground,
+    required this.secondaryBackground,
+    required this.primaryText,
+    required this.secondaryText,
+    required this.success,
     required this.error,
     required this.warning,
-    required this.success,
     required this.info,
-    required this.divider,
     required this.outline,
     required this.disabled,
-    required this.overlay,
     required this.transparent,
     required this.white,
     required this.black,
+    required this.background,
+    required this.surface,
+    required this.overlay,
   });
 
   // Brand colors
   final Color primary;
   final Color secondary;
+  final Color tertiary;
+  final Color alternate;
 
   // Background colors
-  final Color background;
-  final Color surface;
+  final Color primaryBackground;
+  final Color secondaryBackground;
 
   // Text colors
-  final Color textPrimary;
-  final Color textSecondary;
-  final Color textTertiary;
+  final Color primaryText;
+  final Color secondaryText;
 
   // Semantic colors
+  final Color success;
   final Color error;
   final Color warning;
-  final Color success;
   final Color info;
 
   // UI colors
-  final Color divider;
   final Color outline;
   final Color disabled;
-  final Color overlay;
   
   // Additional colors for common use cases
   final Color transparent;
   final Color white;
   final Color black;
 
+  // Legacy properties for backward compatibility
+  final Color background;
+  final Color surface;
+  final Color overlay;
+
   // Light theme colors
   static const AppColors light = AppColors._(
-    // Brand
-    primary: Color(0xFF2563EB),
-    secondary: Color(0xFF7C3AED),
-    
-    // Background
-    background: Color(0xFFFFFFFF),
-    surface: Color(0xFFF8FAFC),
-    
-    // Text
-    textPrimary: Color(0xFF1E293B),
-    textSecondary: Color(0xFF64748B),
-    textTertiary: Color(0xFF94A3B8),
-    
-    // Semantic
-    error: Color(0xFFEF4444),
-    warning: Color(0xFFF59E0B),
-    success: Color(0xFF10B981),
-    info: Color(0xFF3B82F6),
-    
-    // UI
-    divider: Color(0xFFE2E8F0),
-    outline: Color(0xFFCBD5E1),
-    disabled: Color(0xFFCBD5E1),
-    overlay: Color(0x80000000),
-    
-    // Additional colors
+    primary: Color(0xFF3A2BC7),
+    secondary: Color(0xFF39D2C0),
+    tertiary: Color(0xFFEE8B60),
+    alternate: Color(0xFFE0E3E7),
+    primaryBackground: Color(0xFFF1F4F8),
+    secondaryBackground: Color(0xFFFFFFFF),
+    primaryText: Color(0xFF14181B),
+    secondaryText: Color(0xFF57636C),
+    success: Color(0xFF249689),
+    error: Color(0xFFFF5963),
+    warning: Color(0xFFF9CF58),
+    info: Color(0xFFFFFFFF),
+    outline: Color(0xFF57636C),
+    disabled: Color(0xFF57636C),
     transparent: Colors.transparent,
     white: Color(0xFFFFFFFF),
     black: Color(0xFF000000),
+    background: Color(0xFFFFFFFF),
+    surface: Color(0xFFF1F4F8),
+    overlay: Color(0x80000000),
   );
 
   // Dark theme colors
   static const AppColors dark = AppColors._(
-    // Brand
-    primary: Color(0xFF3B82F6),
-    secondary: Color(0xFF8B5CF6),
-    
-    // Background
-    background: Color(0xFF0F172A),
-    surface: Color(0xFF1E293B),
-    
-    // Text
-    textPrimary: Color(0xFFF1F5F9),
-    textSecondary: Color(0xFFCBD5E1),
-    textTertiary: Color(0xFF64748B),
-    
-    // Semantic
-    error: Color(0xFFF87171),
-    warning: Color(0xFFFBBF24),
+    primary: Color(0xFFB2A4FF),
+    secondary: Color(0xFF39D2C0),
+    tertiary: Color(0xFFFFB385),
+    alternate: Color(0xFF262D34),
+    primaryBackground: Color(0xFF181A20),
+    secondaryBackground: Color(0xFF23262B),
+    primaryText: Color(0xFFFFFFFF),
+    secondaryText: Color(0xFFB0B8C1),
     success: Color(0xFF34D399),
-    info: Color(0xFF60A5FA),
-    
-    // UI
-    divider: Color(0xFF334155),
-    outline: Color(0xFF475569),
-    disabled: Color(0xFF475569),
-    overlay: Color(0x80000000),
-    
-    // Additional colors
+    error: Color(0xFFFF6B81),
+    warning: Color(0xFFF9CF58),
+    info: Color(0xFF23262B),
+    outline: Color(0xFFB0B8C1),
+    disabled: Color(0xFFB0B8C1),
     transparent: Colors.transparent,
     white: Color(0xFFFFFFFF),
     black: Color(0xFF000000),
+    background: Color(0xFF0F172A),
+    surface: Color(0xFF1E293B),
+    overlay: Color(0x80000000),
   );
-
-  /// Creates a copy of this color palette with the given fields replaced
-  AppColors copyWithColors({
-    Color? primary,
-    Color? secondary,
-    Color? background,
-    Color? surface,
-    Color? textPrimary,
-    Color? textSecondary,
-    Color? textTertiary,
-    Color? error,
-    Color? warning,
-    Color? success,
-    Color? info,
-    Color? divider,
-    Color? outline,
-    Color? disabled,
-    Color? overlay,
-    Color? transparent,
-    Color? white,
-    Color? black,
-  }) {
-    return AppColors._(
-      primary: primary ?? this.primary,
-      secondary: secondary ?? this.secondary,
-      background: background ?? this.background,
-      surface: surface ?? this.surface,
-      textPrimary: textPrimary ?? this.textPrimary,
-      textSecondary: textSecondary ?? this.textSecondary,
-      textTertiary: textTertiary ?? this.textTertiary,
-      error: error ?? this.error,
-      warning: warning ?? this.warning,
-      success: success ?? this.success,
-      info: info ?? this.info,
-      divider: divider ?? this.divider,
-      outline: outline ?? this.outline,
-      disabled: disabled ?? this.disabled,
-      overlay: overlay ?? this.overlay,
-      transparent: transparent ?? this.transparent,
-      white: white ?? this.white,
-      black: black ?? this.black,
-    );
-  }
-
-  /// Linearly interpolates between two color palettes
-  static AppColors lerpColors(AppColors? a, AppColors? b, double t) {
-    if (a == null && b == null) return light;
-    if (a == null) return b!;
-    if (b == null) return a;
-
-    return AppColors._(
-      primary: Color.lerp(a.primary, b.primary, t)!,
-      secondary: Color.lerp(a.secondary, b.secondary, t)!,
-      background: Color.lerp(a.background, b.background, t)!,
-      surface: Color.lerp(a.surface, b.surface, t)!,
-      textPrimary: Color.lerp(a.textPrimary, b.textPrimary, t)!,
-      textSecondary: Color.lerp(a.textSecondary, b.textSecondary, t)!,
-      textTertiary: Color.lerp(a.textTertiary, b.textTertiary, t)!,
-      error: Color.lerp(a.error, b.error, t)!,
-      warning: Color.lerp(a.warning, b.warning, t)!,
-      success: Color.lerp(a.success, b.success, t)!,
-      info: Color.lerp(a.info, b.info, t)!,
-      divider: Color.lerp(a.divider, b.divider, t)!,
-      outline: Color.lerp(a.outline, b.outline, t)!,
-      disabled: Color.lerp(a.disabled, b.disabled, t)!,
-      overlay: Color.lerp(a.overlay, b.overlay, t)!,
-      transparent: Color.lerp(a.transparent, b.transparent, t)!,
-      white: Color.lerp(a.white, b.white, t)!,
-      black: Color.lerp(a.black, b.black, t)!,
-    );
-  }
 
   @override
   AppColors copyWith({ThemeData? theme}) {
@@ -201,28 +118,107 @@ class AppColors extends ThemeExtension<AppColors> {
     return AppColors.lerpColors(this, other, t);
   }
 
+  /// Creates a copy of this color palette with the given fields replaced
+  AppColors copyWithColors({
+    Color? primary,
+    Color? secondary,
+    Color? tertiary,
+    Color? alternate,
+    Color? primaryBackground,
+    Color? secondaryBackground,
+    Color? primaryText,
+    Color? secondaryText,
+    Color? success,
+    Color? error,
+    Color? warning,
+    Color? info,
+    Color? outline,
+    Color? disabled,
+    Color? transparent,
+    Color? white,
+    Color? black,
+    Color? background,
+    Color? surface,
+    Color? overlay,
+  }) {
+    return AppColors._(
+      primary: primary ?? this.primary,
+      secondary: secondary ?? this.secondary,
+      tertiary: tertiary ?? this.tertiary,
+      alternate: alternate ?? this.alternate,
+      primaryBackground: primaryBackground ?? this.primaryBackground,
+      secondaryBackground: secondaryBackground ?? this.secondaryBackground,
+      primaryText: primaryText ?? this.primaryText,
+      secondaryText: secondaryText ?? this.secondaryText,
+      success: success ?? this.success,
+      error: error ?? this.error,
+      warning: warning ?? this.warning,
+      info: info ?? this.info,
+      outline: outline ?? this.outline,
+      disabled: disabled ?? this.disabled,
+      transparent: transparent ?? this.transparent,
+      white: white ?? this.white,
+      black: black ?? this.black,
+      background: background ?? this.background,
+      surface: surface ?? this.surface,
+      overlay: overlay ?? this.overlay,
+    );
+  }
+
+  /// Linearly interpolates between two color palettes
+  static AppColors lerpColors(AppColors? a, AppColors? b, double t) {
+    if (a == null && b == null) return light;
+    if (a == null) return b!;
+    if (b == null) return a;
+
+    return AppColors._(
+      primary: Color.lerp(a.primary, b.primary, t)!,
+      secondary: Color.lerp(a.secondary, b.secondary, t)!,
+      tertiary: Color.lerp(a.tertiary, b.tertiary, t)!,
+      alternate: Color.lerp(a.alternate, b.alternate, t)!,
+      primaryBackground: Color.lerp(a.primaryBackground, b.primaryBackground, t)!,
+      secondaryBackground: Color.lerp(a.secondaryBackground, b.secondaryBackground, t)!,
+      primaryText: Color.lerp(a.primaryText, b.primaryText, t)!,
+      secondaryText: Color.lerp(a.secondaryText, b.secondaryText, t)!,
+      success: Color.lerp(a.success, b.success, t)!,
+      error: Color.lerp(a.error, b.error, t)!,
+      warning: Color.lerp(a.warning, b.warning, t)!,
+      info: Color.lerp(a.info, b.info, t)!,
+      outline: Color.lerp(a.outline, b.outline, t)!,
+      disabled: Color.lerp(a.disabled, b.disabled, t)!,
+      transparent: Color.lerp(a.transparent, b.transparent, t)!,
+      white: Color.lerp(a.white, b.white, t)!,
+      black: Color.lerp(a.black, b.black, t)!,
+      background: Color.lerp(a.background, b.background, t)!,
+      surface: Color.lerp(a.surface, b.surface, t)!,
+      overlay: Color.lerp(a.overlay, b.overlay, t)!,
+    );
+  }
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is AppColors &&
         other.primary == primary &&
         other.secondary == secondary &&
-        other.background == background &&
-        other.surface == surface &&
-        other.textPrimary == textPrimary &&
-        other.textSecondary == textSecondary &&
-        other.textTertiary == textTertiary &&
+        other.tertiary == tertiary &&
+        other.alternate == alternate &&
+        other.primaryBackground == primaryBackground &&
+        other.secondaryBackground == secondaryBackground &&
+        other.primaryText == primaryText &&
+        other.secondaryText == secondaryText &&
+        other.success == success &&
         other.error == error &&
         other.warning == warning &&
-        other.success == success &&
         other.info == info &&
-        other.divider == divider &&
         other.outline == outline &&
         other.disabled == disabled &&
-        other.overlay == overlay &&
         other.transparent == transparent &&
         other.white == white &&
-        other.black == black;
+        other.black == black &&
+        other.background == background &&
+        other.surface == surface &&
+        other.overlay == overlay;
   }
 
   @override
@@ -230,27 +226,24 @@ class AppColors extends ThemeExtension<AppColors> {
     return Object.hash(
       primary,
       secondary,
-      background,
-      surface,
-      textPrimary,
-      textSecondary,
-      textTertiary,
+      tertiary,
+      alternate,
+      primaryBackground,
+      secondaryBackground,
+      primaryText,
+      secondaryText,
+      success,
       error,
       warning,
-      success,
       info,
-      divider,
       outline,
       disabled,
-      overlay,
       transparent,
       white,
       black,
+      background,
+      surface,
+      overlay,
     );
-  }
-
-  @override
-  String toString() {
-    return 'AppColors(primary: $primary, secondary: $secondary, background: $background, surface: $surface, textPrimary: $textPrimary, textSecondary: $textSecondary, textTertiary: $textTertiary, error: $error, warning: $warning, success: $success, info: $info, divider: $divider, outline: $outline, disabled: $disabled, overlay: $overlay)';
   }
 } 
